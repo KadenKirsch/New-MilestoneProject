@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tetris</title>
+
+    <style>
+      body
+      {
+          background: black;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+      canvas
+      {
+        border: 1px solid white;
+      }
+    </style>
+</head>
+<body>
+ <canvas width="300" height="300" id="Tetris"></canvas>
+ <script>
+
+     function displaygameover()
+     {
+         cancelAnimationFrame(reqTetUpdate);
+         gameover = true;
+
+         context.fillStyle = 'black';
+         context.globalAlpha = 0.75;
+         context.fillRect(0, canvas.height/2 - 30, canvas.width, 60);
+
+         context.fillStyle = 'white';
+         context.globalAlpha = 1;
+         context.font = "30px monospace";
+         context.textBaseline = 'middle';
+         context.textAlign = 'center';
+         context.fillText('Game over!', canvas.width/2, canvas.height/2);
+     }
+
+ const canvas = document.getElementById('Tetris');
+ const context = canvas.getContext('2d');
+ const grid = 30;
+
+ let reqTetUpdate = null;
+ let gameover = false; 
+     function cyclic()
+     {
+     reqTetUpdate = requestAnimationFrame(cyclic);
+     context.clearRect(0, 0, canvas.width, canvas.height);
+
+     for(let x = 0; x <10; x++)
+     {
+         for(let y = 0; y <10; y++)
+         {
+             context.fillStyle = 'Orange';
+             context.fillRect(y*grid, x*grid, grid-1, grid-1);
+         }
+     }
+
+     displaygameover();
+     }
+
+     reqTetUpdate = requestAnimationFrame(cyclic);
+
+
+
+ </script>
+
+</body>
+</html> 
